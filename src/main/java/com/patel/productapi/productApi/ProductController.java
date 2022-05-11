@@ -3,16 +3,18 @@ package com.patel.productapi.productApi;
 
 import com.patel.productapi.models.Product;
 import com.patel.productapi.repos.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class ProductController {
 
-    @Autowired
-   private ProductRepository repository;
+    private final ProductRepository repository;
+
 
     @RequestMapping(value="/products/",method = RequestMethod.GET)
     public List<Product> getProducts() {
@@ -42,12 +44,6 @@ public class ProductController {
 
         repository.deleteById(id);
     }
-
-
-
-
-
-
 
 
 
