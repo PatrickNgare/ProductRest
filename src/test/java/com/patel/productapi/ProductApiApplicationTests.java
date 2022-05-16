@@ -11,11 +11,25 @@ import static org.junit.Assert.*;
 class ProductApiApplicationTests {
 
     @Test
-    void testGetProduct() {
+    public void testGetProduct() {
         RestTemplate restTemplate = new RestTemplate();
-        Product product= restTemplate.getForObject("http://localhost:8901/ShopApi/products/", Product.class);
+        Product product= restTemplate.getForObject("http://localhost:8901/ShopApi/products/1", Product.class);
         assertNotNull(product);
-        assertEquals("Sugar",product.getName());
+        assertEquals("Sugar " ,product.getName());
+
+    }
+    @Test
+    public void testCreateProduct() {
+        RestTemplate restTemplate = new RestTemplate();
+        Product product=new Product();
+        product.setName("Samsung Mobile");
+        product.setDescription("It is awesome");
+        product.setPrice(1000);
+       Product newproduct= restTemplate.postForObject("http://localhost:8901/ShopApi/products/",product,Product.class);
+       assertNotNull(newproduct);
+       assertNotNull(newproduct.getId());
+       assertEquals("Samsung Mobile",newproduct.getName());
+
 
     }
 
